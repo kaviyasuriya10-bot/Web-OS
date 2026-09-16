@@ -1,0 +1,209 @@
+import { AppsInMenu } from "../menuApps/menuAppIndex";
+import { useAppStore } from "../../store";
+import Browser from "../../components/home/AppLogic/Browser";
+import Camera from "../../components/home/AppLogic/Camera";
+import MusicPlayer from "../../components/home/AppLogic/MusicPlayer";
+import { WALL_STILLS } from "../wallpapers";
+
+export function openAppByName(name) {
+    const openApp = useAppStore.getState().openApp;
+    const apps = AppsInMenu();
+
+    const app = apps.find(
+        (item) =>
+            item.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (!app) {
+        console.error(`App "${name}" not found`);
+        return false;
+    }
+    openApp(app);
+    return true;
+}
+
+export function handleSearchWeb(query) {
+    const openApp = useAppStore.getState().openApp;
+
+    openApp({
+        id: 5,
+        name: "Browser",
+        description: "use as a search engine",
+        icon: "./wizard-icons/browser.svg",
+        app: <Browser searchQuery={query} />,
+        width: 700,
+        height: 500,
+    });
+
+    return {
+        success: true,
+        message: `Opened browser and searched for "${query}"`
+    };
+}
+
+export function handleOpenCalculator() {
+    return openAppByName("Calculator");
+}
+
+export function handleOpenBrowser() {
+    return openAppByName("Browser");
+}
+
+export function handleOpenCamera() {
+    return openAppByName("Camera");
+}
+
+export function handleOpenMusic() {
+    return openAppByName("Music Player");
+}
+
+export function handleOpenYouTube() {
+    return openAppByName("YouTube");
+}
+
+export function handleOpenGallery() {
+    return openAppByName("Gallery");
+}
+
+export function handleOpenNotes() {
+    return openAppByName("Notes");
+}
+
+export function handleOpenSettings() {
+    return openAppByName("Settings");
+}
+
+export function handleOpenTodo() {
+    return openAppByName("Todo");
+}
+
+export function handleOpenGames() {
+    return openAppByName("Piano");
+}
+
+export function handleOpenFileManager() {
+    return openAppByName("File Manager");
+}
+
+export function handleOpenShorts() {
+    return openAppByName("Shorts");
+}
+
+export function handleTakePicture() {
+    const openApp = useAppStore.getState().openApp;
+
+    openApp({
+        id: 7,
+        name: "Camera",
+        description: "used to click photos",
+        icon: "./wizard-icons/camera.svg",
+        app: <Camera autoCapture={true} />,
+        width: 650,
+        height: 480,
+    });
+
+    return {
+        success: true,
+        message: "Picture taken"
+    };
+}
+
+export function handlePlayMusic() {
+    const openApp = useAppStore.getState().openApp;
+    openApp({
+        id: 8,
+        name: "Music Player",
+        description: "used to listen Music",
+        icon: "./wizard-icons/music.svg",
+        app: <MusicPlayer autoPlay={true} />,
+        width: 250,
+        height: 450,
+    });
+
+    return {
+        success: true,
+        message: "Music player opened and music started"
+    };
+}
+
+export function handleBrightness() {
+    return useAppStore.getState().Brightness;
+}
+
+export function handleIncreaseBrightness() {
+    const {
+        Brightness,
+        setBrightness
+    } = useAppStore.getState();
+
+    const newBrightness = Math.min(
+        Brightness + 10,
+        100
+    );
+    setBrightness(newBrightness);
+
+    return {
+        success: true,
+        brightness: newBrightness
+    };
+}
+
+export function handleDecreaseBrightness() {
+    const {
+        Brightness,
+        setBrightness
+    } = useAppStore.getState();
+
+    const newBrightness = Math.max(
+        Brightness - 10,
+        20
+    );
+    setBrightness(newBrightness);
+
+    return {
+        success: true,
+        brightness: newBrightness
+    };
+}
+
+export function handleWallpaper() {
+    const setWallpaper =
+        useAppStore.getState().setWallpaper;
+    const wallpapers = WALL_STILLS;
+    const randomWallpaper = wallpapers[Math.floor(Math.random() * wallpapers.length)]
+
+    setWallpaper(randomWallpaper)
+    console.log("wallpaper random One: ", randomWallpaper)
+    return {
+        success: true,
+        wallpaper: randomWallpaper,
+        message: "Wallpaper changed successfully"
+    }
+}
+
+export function handleWallpaperFromUrl(url) {
+    if (!url) {
+        throw new Error("No wallpaper URL was provided");
+    }
+    const setWallpaper = useAppStore.getState().setWallpaper;
+
+    setWallpaper(url);
+
+    return {
+        success: true,
+        wallpaper: url,
+        message: "Wallpaper changed successfully"
+    };
+}
+
+export function handleWidgets() {
+    const toggleWidgetMenu =
+        useAppStore.getState().toggleWidgetMenu;
+
+    toggleWidgetMenu();
+
+    return {
+        success: true,
+        message: "Widget menu toggled"
+    };
+}
