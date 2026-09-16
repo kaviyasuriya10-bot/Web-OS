@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+@theme {
+  --color-primary: #c9a24b
+}
+
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(40px, -30px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(30px, 40px) scale(1.02);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes close {
+  from {
+    transform: translateY(0vh);
+  }
+
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+.close-app {
+  animation: close ease-in-out 0.3s;
+  transform: translateY(100vh);
+}
+
+@keyframes open {
+  from {
+    transform: translateY(100vh);
+  }
+
+  to {
+    transform: translateY(0vh);
+  }
+}
+
+.open-app {
+  animation: open ease-in-out 0.3s;
+}
+
+.wall::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  pointer-events: none;
+}
+
+@keyframes menu-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-app-fade {
+  animation: menu-fade 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-app-fade {
+    animation: none;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+.koba-thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 162, 75, 0.45) transparent;
+}
+
+.koba-thin-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.koba-thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.koba-thin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 75, 0.45);
+  border-radius: 9999px;
+}
+
+
+/* Hogwarts-inspired visual skin — functionality/layout intentionally preserved. */
+:root {
+  --wizard-gold: #c9a24b;
+  --wizard-cream: #f4e8c5;
+  --wizard-burgundy: #4b1f2b;
+  --wizard-ink: #15111b;
+}
+body {
+  font-family: Georgia, "Times New Roman", serif;
+}
+button, input, textarea, select { font-family: inherit; }
+::selection { background: rgba(201,162,75,.35); color: #fff8df; }
+.wizard-glow { box-shadow: 0 0 28px rgba(201,162,75,.22); }
