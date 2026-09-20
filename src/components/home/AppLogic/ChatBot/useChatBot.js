@@ -10,7 +10,7 @@ import {
     VALID_EMOTION_NAMES,
     normalizeEmotion,
 } from "../../../../lib/AIChats/emotionUtils.js";
-import { buildSystemPrompt } from "../../../../lib/AIChats/kobayashiPrompt.js";
+import { buildSystemPrompt } from "../../../../lib/AIChats/hogwartsPrompt.js";
 import { runLocalCommand } from "../../../../lib/AIChats/localCommands.js";
 import { speak } from "../../../../lib/AIChats/speech.js";
 import {
@@ -23,7 +23,7 @@ import {
 
 const LOCAL_EMOTION = "bored";
 
-export const ASSISTANT_ROLE = "kobayashi-chan-ai";
+export const ASSISTANT_ROLE = "hogwarts-assistant-ai";
 
 function toApiMessages(history) {
     return history
@@ -63,7 +63,7 @@ export function useChatBot() {
 
     useEffect(() => {
         const handleStorage = (event) => {
-            if (event.key && event.key !== "koba-relation") return;
+            if (event.key && event.key !== "hogwarts-relation") return;
             const next = loadRelation();
             setRelation(next);
             if (messageHistory.length === 0) {

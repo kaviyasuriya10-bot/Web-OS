@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 
 const USER = "riko";
-const HOST = "koba";
+const HOST = "hogwarts";
 
 const BANNER = String.raw`
  ██ ▄█▀ ▒█████   ▄▄▄▄    ▄▄▄        ██████  ██░ ██  ██▓
@@ -293,7 +293,7 @@ export default function Terminal() {
           type: "output",
           value: [
             "      ____  ____",
-            "     / __ \\/ __/  riko@koba",
+            "     / __ \\/ __/  riko@hogwarts",
             "    / /_/ / /_    ──────────",
             `    \\____/\\__/    shell: bash (e2b ${conn === "connected" ? "connected" : conn})`,
             `                 cwd: ${shortCwd(tabObj.cwd, home)}`,

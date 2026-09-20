@@ -85,7 +85,7 @@ export default function SonomaWeather() {
             const json = await res.json();
             const snapshot = { ...json, _at: Date.now() };
             setData(snapshot);
-            try { localStorage.setItem("koba-weather-cache", JSON.stringify(snapshot)); } catch { /* ignore */ }
+            try { localStorage.setItem("hogwarts-weather-cache", JSON.stringify(snapshot)); } catch { /* ignore */ }
         } catch { /* ignore */ }
     }, []);
 

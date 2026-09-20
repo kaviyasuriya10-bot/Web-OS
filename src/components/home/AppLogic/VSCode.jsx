@@ -42,7 +42,7 @@ export default function VS_Code() {
 
     useEffect(() => {
         const onMsg = (e) => {
-            if (!e.data?.__kobaConsole) return;
+            if (!e.data?.__hogwartsConsole) return;
             setLogs((prev) => [...prev.slice(-99), { type: e.data.type, args: e.data.args }]);
         };
         window.addEventListener("message", onMsg);
@@ -150,13 +150,13 @@ export default function VS_Code() {
                         value={code[tab]}
                         onChange={(v) => setCode((c) => ({ ...c, [tab]: v ?? "" }))}
                         onMount={(editor, monaco) => {
-                            monaco.editor.defineTheme("koba-dark", {
+                            monaco.editor.defineTheme("hogwarts-dark", {
                                 base: "vs-dark",
                                 inherit: true,
                                 rules: [],
                                 colors: { "editor.background": "#1e1e1e" },
                             });
-                            monaco.editor.setTheme("koba-dark");
+                            monaco.editor.setTheme("hogwarts-dark");
                             editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => runRef.current());
                         }}
                         options={{

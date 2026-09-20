@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MapPinIcon, ArrowClockwiseIcon } from "@phosphor-icons/react";
 import { readWeatherCache, readWeatherHistory } from "../../../lib/Widgets/widgetSettings";
 
-const CACHE_KEY = "koba-weather-cache";
+const CACHE_KEY = "hogwarts-weather-cache";
 
 export default function WeatherGlass() {
     const [data, setData] = useState(readWeatherCache);

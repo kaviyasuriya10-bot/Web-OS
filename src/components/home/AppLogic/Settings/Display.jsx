@@ -5,6 +5,7 @@ import DeepinBtns from "./IconBtns/DeepinBtns";
 import FluentBtns from "./IconBtns/FluentBtns";
 import MacTahoeBtns from "./IconBtns/MacTahoeBtns";
 import WhiteSurBtns from "./IconBtns/WhiteSurBtns";
+import WindowsBtns from "./IconBtns/WindowsBtns";
 
 export default function Display() {
 
@@ -33,6 +34,10 @@ export default function Display() {
         {
             name: "WhiteSur",
             element: <WhiteSurBtns />
+        },
+        {
+            name: "Windows",
+            element: <WindowsBtns />
         }
     ];
 
@@ -58,7 +63,7 @@ export default function Display() {
                 <h2 className="mb-6 mt-1 text-xs text-black">
                     Icons Style
                 </h2>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                     {IconStyles.map((styles) => (
 
                         <div className="flex flex-col text-[10px] gap-2 items-center text-slate-500">

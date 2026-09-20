@@ -15,7 +15,7 @@ const slides = [
         image: "/wizard-art/8.svg",
     },
     {
-        title: "Code like Kobayashi",
+        title: "Code like a wizard",
         description:
             "VS Code, a real terminal, instant run. Write it, break it, run it again.",
         image: "/wizard-art/10.svg",
@@ -47,7 +47,7 @@ const slides = [
     {
         title: "Widgets + enchanted browsing",
         description:
-            "Drop clocks and notes anywhere, or just ask Hogwarts Assistant. Surf with WizardSurf.",
+            "Drop clocks and notes anywhere, or just ask Hogwarts Assistant. Surf with Hogwarts Surf.",
         image: "/wizard-art/9.svg",
     },
     {

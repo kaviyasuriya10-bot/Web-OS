@@ -12,7 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const HISTORY_KEY = "koba-weather-history";
+const HISTORY_KEY = "hogwarts-weather-history";
 
 function compass(deg) {
     if (deg == null) return "";

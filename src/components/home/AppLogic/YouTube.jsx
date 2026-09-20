@@ -136,7 +136,7 @@ export default function YouTube() {
     const [saved, setSaved] = useState(() => new Set());
     const [history, setHistory] = useState(() => {
         try {
-            return JSON.parse(localStorage.getItem("koba-yt-history") || "[]");
+            return JSON.parse(localStorage.getItem("hogwarts-yt-history") || "[]");
         } catch {
             return [];
         }
@@ -152,7 +152,7 @@ export default function YouTube() {
 
     useEffect(() => {
         try {
-            localStorage.setItem("koba-yt-history", JSON.stringify(history.slice(0, 30)));
+            localStorage.setItem("hogwarts-yt-history", JSON.stringify(history.slice(0, 30)));
         } catch {
             /* storage unavailable */
         }
@@ -323,7 +323,7 @@ export default function YouTube() {
                         >
                             <img src="./wizard-icons/youtube.svg" alt="YouTube" className="w-7 h-7" />
                             <span className="font-bold tracking-tighter text-lg hidden @min-[400px]:block">
-                                Koba<span className="text-red-500">Tube</span>
+                                Wizard<span className="text-red-500">Tube</span>
                             </span>
                         </button>
                         {searchBar(false)}
@@ -396,7 +396,7 @@ export default function YouTube() {
                             <button onClick={() => setSidebarOpen(false)} className="p-2 rounded-full hover:bg-white/10 cursor-pointer">
                                 <ListIcon size={20} />
                             </button>
-                            <span className="font-bold tracking-tighter text-lg">Koba<span className="text-red-500">Tube</span></span>
+                            <span className="font-bold tracking-tighter text-lg">Wizard<span className="text-red-500">Tube</span></span>
                         </div>
                         {navItem("home", <HouseIcon size={20} />, "Home")}
                         {navItem("trending", <FireIcon size={20} />, "Trending")}

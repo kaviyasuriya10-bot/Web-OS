@@ -26,12 +26,12 @@ const ENGINES = {
     brave: { label: "Brave", search: (q) => `https://search.brave.com/search?q=${encodeURIComponent(q)}` },
 };
 
-const KOBASURF_HOME = "wizardsurf://home";
+const HOGWARTS_SURF_HOME = "hogwartssurf://home";
 const LEGACY_DEFAULT = "https://www.google.com/search?igu=1";
-const DEFAULT_HOMEPAGE = KOBASURF_HOME;
-const SETTINGS_KEY = "kobayashi-browser-settings";
+const DEFAULT_HOMEPAGE = HOGWARTS_SURF_HOME;
+const SETTINGS_KEY = "hogwarts-browser-settings";
 
-const isWizardSurfUrl = (url) => typeof url === "string" && url.startsWith("wizardsurf://");
+const isHogwartsSurfUrl = (url) => typeof url === "string" && url.startsWith("hogwartssurf://");
 
 function loadSettings() {
     try {
@@ -68,7 +68,7 @@ function resolveInput(input, engine, homepage) {
 }
 
 function shortTitle(url) {
-    if (isWizardSurfUrl(url)) return "WizardSurf";
+    if (isHogwartsSurfUrl(url)) return "Hogwarts Surf";
     try {
         const u = new URL(url);
         if (ENGINES.google.search("").startsWith(u.origin + u.pathname) || u.hostname.includes("google.com")) {
@@ -122,7 +122,7 @@ function useWallpaper() {
     return { src, isVideo, isSolid, solid: isSolid ? (wallpaper || "").slice("color:".length) : null };
 }
 
-function WizardSurfHome({ engineLabel, onSearch }) {
+function HogwartsSurfHome({ engineLabel, onSearch }) {
     const [q, setQ] = useState("");
     const { src, isVideo, isSolid, solid } = useWallpaper();
 
@@ -138,9 +138,9 @@ function WizardSurfHome({ engineLabel, onSearch }) {
             <div className="absolute inset-0 bg-black/30 backdrop-blur-[3px]" />
             <div className="relative flex h-full w-full flex-col items-center justify-center px-6">
                 <div className="flex items-center gap-6">
-                    <img src="/wizard-icons/logo.svg" alt="WizardSurf" className="h-16 w-16" />
+                    <img src="/wizard-icons/logo.svg" alt="Hogwarts Surf" className="h-16 w-16" />
                     <h1 className="mt-4 text-[26px] font-semibold lowercase tracking-tight text-white">
-                        wizardsurf
+                        hogwartssurf
                     </h1>
                 </div>
                 <form
@@ -327,9 +327,9 @@ export default function Browser({ searchQuery = "" }) {
                     )}
                     <input
                         ref={inputRef}
-                        value={focused ? draft : isWizardSurfUrl(currentUrl) ? "" : currentUrl}
+                        value={focused ? draft : isHogwartsSurfUrl(currentUrl) ? "" : currentUrl}
                         onChange={(e) => setDraft(e.target.value)}
-                        onFocus={() => { setDraft(isWizardSurfUrl(currentUrl) ? "" : currentUrl); setFocused(true); setTimeout(() => inputRef.current?.select(), 0); }}
+                        onFocus={() => { setDraft(isHogwartsSurfUrl(currentUrl) ? "" : currentUrl); setFocused(true); setTimeout(() => inputRef.current?.select(), 0); }}
                         onBlur={() => setFocused(false)}
                         onKeyDown={(e) => { if (e.key === "Enter") submit(); if (e.key === "Escape") { setDraft(currentUrl); inputRef.current?.blur(); } }}
                         placeholder="Search or type a URL"
@@ -406,8 +406,8 @@ export default function Browser({ searchQuery = "" }) {
             </div>
 
             <div className="min-h-0 flex-1 bg-white">
-                {isWizardSurfUrl(currentUrl) ? (
-                    <WizardSurfHome
+                {isHogwartsSurfUrl(currentUrl) ? (
+                    <HogwartsSurfHome
                         key={active?.id}
                         engineLabel={ENGINES[settings.engine].label}
                         onSearch={(raw) => {

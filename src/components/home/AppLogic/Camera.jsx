@@ -261,7 +261,7 @@ export default function Camera({ autoCapture = false }) {
         if (!capturedPhoto) return;
         const a = document.createElement("a");
         a.href = capturedPhoto;
-        a.download = `kobayashi-cam-${Date.now()}.jpg`;
+        a.download = `hogwarts-cam-${Date.now()}.jpg`;
         a.click();
     };
 

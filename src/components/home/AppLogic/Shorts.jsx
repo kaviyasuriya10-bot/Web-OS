@@ -87,14 +87,14 @@ function shuffled(arr) {
 }
 
 export default function Shorts() {
-    const [shorts, setShorts] = useState(() => [...DEFAULT_SHORTS, ...loadJSON("koba-shorts-custom", [])]);
-    const [feed, setFeed] = useState(() => [...DEFAULT_SHORTS, ...loadJSON("koba-shorts-custom", [])]);
+    const [shorts, setShorts] = useState(() => [...DEFAULT_SHORTS, ...loadJSON("hogwarts-shorts-custom", [])]);
+    const [feed, setFeed] = useState(() => [...DEFAULT_SHORTS, ...loadJSON("hogwarts-shorts-custom", [])]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [muted, setMuted] = useState(true);
     const [paused, setPaused] = useState(false);
-    const [liked, setLiked] = useState(() => new Set(loadJSON("koba-shorts-liked", [])));
+    const [liked, setLiked] = useState(() => new Set(loadJSON("hogwarts-shorts-liked", [])));
     const [disliked, setDisliked] = useState(() => new Set());
-    const [saved, setSaved] = useState(() => new Set(loadJSON("koba-shorts-saved", [])));
+    const [saved, setSaved] = useState(() => new Set(loadJSON("hogwarts-shorts-saved", [])));
     const [showAdd, setShowAdd] = useState(false);
     const [addInput, setAddInput] = useState("");
     const [addError, setAddError] = useState("");
@@ -114,9 +114,9 @@ export default function Shorts() {
 
     useEffect(() => {
         try {
-            localStorage.setItem("koba-shorts-custom", JSON.stringify(shorts.filter((s) => s.custom)));
-            localStorage.setItem("koba-shorts-liked", JSON.stringify([...liked]));
-            localStorage.setItem("koba-shorts-saved", JSON.stringify([...saved]));
+            localStorage.setItem("hogwarts-shorts-custom", JSON.stringify(shorts.filter((s) => s.custom)));
+            localStorage.setItem("hogwarts-shorts-liked", JSON.stringify([...liked]));
+            localStorage.setItem("hogwarts-shorts-saved", JSON.stringify([...saved]));
         } catch {
             /* storage unavailable */
         }

@@ -12,8 +12,8 @@ import { useEffect, useRef, useState } from "react";
 import { ColorPicker, ColorService, useColor } from "react-color-palette";
 import "react-color-palette/css";
 
-const HISTORY_KEY = "koba-color-history";
-const FAVORITES_KEY = "koba-color-favorites";
+const HISTORY_KEY = "hogwarts-color-history";
+const FAVORITES_KEY = "hogwarts-color-favorites";
 
 const HARMONIES = ["Complementary", "Analogous", "Triadic"];
 

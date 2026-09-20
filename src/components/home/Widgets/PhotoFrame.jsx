@@ -238,7 +238,7 @@ export default function PhotoFrame() {
                         ))}
                     </div>
 
-                    <div className="koba-thin-scroll flex-1 min-h-0 overflow-y-auto px-[3cqw] pb-[2cqw]">
+                    <div className="hogwarts-thin-scroll flex-1 min-h-0 overflow-y-auto px-[3cqw] pb-[2cqw]">
                         {filtered ? (
                             filtered.length > 0 ? (
                                 <div className="grid gap-[1.8cqw] [grid-template-columns:repeat(auto-fill,minmax(min(52px,30cqw),1fr))]">

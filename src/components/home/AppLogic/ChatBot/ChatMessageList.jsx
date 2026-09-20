@@ -58,7 +58,7 @@ export function ChatMessageList({ messages, onRetry, retryDisabled }) {
     }, [messages]);
 
     return (
-        <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-6 koba-thin-scroll">
+        <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-6 space-y-6 hogwarts-thin-scroll">
             {messages.map((msg, i) => {
                 const key = msg.id ?? i;
                 if (msg.role === ASSISTANT_ROLE && msg.status === "failed") {
