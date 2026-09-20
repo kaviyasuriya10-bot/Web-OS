@@ -48,7 +48,7 @@ const saveWidgets = (widgets) => {
 
 const getInitialApps = () => {
     try {
-        if (!localStorage.getItem("kobayashi-seen")) return [];
+        if (!localStorage.getItem("hogwarts-seen")) return [];
     } catch {
         return [];
     }

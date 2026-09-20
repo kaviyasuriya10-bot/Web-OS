@@ -1,4 +1,4 @@
-const CONSOLE_HOOK = `<script>(function(){var send=function(type,args){try{parent.postMessage({__kobaConsole:true,type:type,args:args.map(function(a){try{return typeof a==="object"?JSON.stringify(a):String(a)}catch(e){return String(a)}})},"*")}catch(e){}};["log","info","warn","error"].forEach(function(m){var orig=console[m];console[m]=function(){send(m,Array.prototype.slice.call(arguments));if(orig)orig.apply(console,arguments)}});window.addEventListener("error",function(e){send("error",[e.message])});})();</script>`;
+const CONSOLE_HOOK = `<script>(function(){var send=function(type,args){try{parent.postMessage({__hogwartsConsole:true,type:type,args:args.map(function(a){try{return typeof a==="object"?JSON.stringify(a):String(a)}catch(e){return String(a)}})},"*")}catch(e){}};["log","info","warn","error"].forEach(function(m){var orig=console[m];console[m]=function(){send(m,Array.prototype.slice.call(arguments));if(orig)orig.apply(console,arguments)}});window.addEventListener("error",function(e){send("error",[e.message])});})();</script>`;
 
 export function buildPreviewDoc({ html, css, js }) {
     const safeJs = (js || "").replace(/<\/script>/gi, "<\\/script>");

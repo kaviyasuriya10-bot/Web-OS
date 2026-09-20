@@ -15,14 +15,14 @@ function FullscreenGate() {
 
   useEffect(() => {
     if (document.fullscreenElement) return;
-    if (sessionStorage.getItem("kobayashi-fs-dismissed")) return;
+    if (sessionStorage.getItem("hogwarts-fs-dismissed")) return;
 
     let cancelled = false;
 
     const onChange = () => {
       if (document.fullscreenElement) {
-        localStorage.setItem("kobayashi-fs-allowed", "1");
-        sessionStorage.removeItem("kobayashi-fs-dismissed");
+        localStorage.setItem("hogwarts-fs-allowed", "1");
+        sessionStorage.removeItem("hogwarts-fs-dismissed");
         setVisible(false);
       }
     };
@@ -34,7 +34,7 @@ function FullscreenGate() {
       })
       .catch(() => {
         if (cancelled) return;
-        if (localStorage.getItem("kobayashi-fs-allowed")) {
+        if (localStorage.getItem("hogwarts-fs-allowed")) {
           const autoEnter = () => requestFullscreen().catch(() => setVisible(true));
           window.addEventListener("pointerdown", autoEnter, { once: true });
           window.addEventListener("keydown", autoEnter, { once: true });
@@ -58,7 +58,7 @@ function FullscreenGate() {
   };
 
   const dismiss = () => {
-    sessionStorage.setItem("kobayashi-fs-dismissed", "1");
+    sessionStorage.setItem("hogwarts-fs-dismissed", "1");
     setVisible(false);
   };
 
@@ -91,7 +91,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFirstRun, setIsFirstRun] = useState(() => {
     try {
-      return !localStorage.getItem("kobayashi-seen");
+      return !localStorage.getItem("hogwarts-seen");
     } catch {
       return false;
     }
@@ -99,7 +99,7 @@ function App() {
 
   const finishFirstRun = () => {
     try {
-      localStorage.setItem("kobayashi-seen", "1");
+      localStorage.setItem("hogwarts-seen", "1");
     } catch { /* ignore */ }
     setIsFirstRun(false);
   };

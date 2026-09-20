@@ -1,4 +1,4 @@
-const KEY = "koba-relation";
+const KEY = "hogwarts-relation";
 
 export const RELATION_LEVELS = [
     {

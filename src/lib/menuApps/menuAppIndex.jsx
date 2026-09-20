@@ -13,7 +13,7 @@ import Shorts from "../../components/home/AppLogic/Shorts";
 import Chess from "../../components/home/AppLogic/Chess";
 import Kanvas from "../../components/home/AppLogic/Kanvas";
 import Terminal from "../../components/home/AppLogic/Terminal";
-import KobaSheets from "../../components/home/AppLogic/KobaSheets";
+import HogwartsSheets from "../../components/home/AppLogic/HogwartsSheets";
 import Word from "../../components/home/AppLogic/Word";
 import JsonLab from "../../components/home/AppLogic/JSONLab";
 import DevScope from "../../components/home/AppLogic/DevScope";
@@ -111,7 +111,7 @@ export const AppsInMenu = (iconStyle = "Colloid") => [
     },
     {
         id: 9,
-        name: "KobaTube",
+        name: "WizardTube",
         description: "used to watch Youtube",
         icon: MenuIconApperance[iconStyle].YouTube,
         app: <YouTube />,
@@ -174,16 +174,16 @@ export const AppsInMenu = (iconStyle = "Colloid") => [
     },
     {
         id: 16,
-        name: "KobaSheets",
+        name: "HogwartsSheets",
         description: "used to deal with spreadsheets",
         icon: MenuIconApperance[iconStyle].Excel,
-        app: <KobaSheets />,
+        app: <HogwartsSheets />,
         width: 750,
         height: 666,
     },
     {
         id: 17,
-        name: "Koba Word",
+        name: "Hogwarts Word",
         description: "used to deal with words and docx",
         icon: MenuIconApperance[iconStyle].Word,
         app: <Word />,
@@ -309,7 +309,7 @@ export const AppsInMenu = (iconStyle = "Colloid") => [
     },
     {
         id: 31,
-        name: "Kobashi",
+        name: "Hogwarts Terminal",
         description: "used as terminal for the os",
         icon: MenuIconApperance[iconStyle].Terminal,
         app: <Terminal />,
@@ -318,7 +318,7 @@ export const AppsInMenu = (iconStyle = "Colloid") => [
     },
     {
         id: 32,
-        name: "Kobai",
+        name: "Hogwarts Assistant",
         description: "used as the ai assistant in the os",
         icon: "./wizard-icons/ai.svg",
         app: <ChatBot />,

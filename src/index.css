@@ -99,20 +99,20 @@ button {
   cursor: pointer;
 }
 
-.koba-thin-scroll {
+.hogwarts-thin-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(201, 162, 75, 0.45) transparent;
 }
 
-.koba-thin-scroll::-webkit-scrollbar {
+.hogwarts-thin-scroll::-webkit-scrollbar {
   width: 4px;
 }
 
-.koba-thin-scroll::-webkit-scrollbar-track {
+.hogwarts-thin-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.koba-thin-scroll::-webkit-scrollbar-thumb {
+.hogwarts-thin-scroll::-webkit-scrollbar-thumb {
   background: rgba(201, 162, 75, 0.45);
   border-radius: 9999px;
 }

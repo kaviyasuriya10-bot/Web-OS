@@ -31,7 +31,7 @@ export function readNotes() {
 
 export function readWeatherHistory() {
     try {
-        const parsed = JSON.parse(localStorage.getItem("koba-weather-history"));
+        const parsed = JSON.parse(localStorage.getItem("hogwarts-weather-history"));
         return Array.isArray(parsed) ? parsed : [];
     } catch {
         return [];
@@ -40,7 +40,7 @@ export function readWeatherHistory() {
 
 export function readWeatherCache() {
     try {
-        return JSON.parse(localStorage.getItem("koba-weather-cache")) || null;
+        return JSON.parse(localStorage.getItem("hogwarts-weather-cache")) || null;
     } catch {
         return null;
     }

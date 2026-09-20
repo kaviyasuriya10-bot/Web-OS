@@ -1,4 +1,4 @@
-const DB_NAME = "kobayashiDB";
+const DB_NAME = "hogwartsDB";
 const STORE_NAME = "memories";
 const MAX_MEMORIES = 30;
 

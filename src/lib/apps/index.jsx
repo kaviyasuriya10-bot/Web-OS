@@ -15,7 +15,7 @@ import Kanvas from "../../components/home/AppLogic/Kanvas";
 export const AppsMenu = (iconStyle = "Colloid") => [
     {
         id: 1,
-        name: "Kobai",
+        name: "Hogwarts Assistant",
         description: "use as Ai",
         icon: "./wizard-icons/ai.svg",
         app: <ChatBot />,
@@ -51,7 +51,7 @@ export const AppsMenu = (iconStyle = "Colloid") => [
     },
     {
         id: 5,
-        name: "Kobashi",
+        name: "Hogwarts Terminal",
         description: "used as terminal for the os",
         icon: IconsApperance[iconStyle].Terminal,
         app: <Terminal />,

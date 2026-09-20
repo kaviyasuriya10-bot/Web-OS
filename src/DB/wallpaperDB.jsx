@@ -1,4 +1,4 @@
-const DB_NAME = "kobayashiOS";
+const DB_NAME = "hogwartsOS";
 const STORE_NAME = "wallpapers";
 
 const openDB = () => {
