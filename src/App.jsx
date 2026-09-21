@@ -161,10 +161,8 @@ function App() {
 
   return (
     <>
-      {
-        <audio ref={bootAudioRef} src="/Music/Hedwigs-Song-Boot.mp3" preload="auto" aria-hidden="true" />
-        {isLoading && <Loading musicBlocked={bootMusicBlocked} onEnableMusic={enableBootMusic} />}
-      }
+      <audio ref={bootAudioRef} src="/Music/Hedwigs-Song-Boot.mp3" preload="auto" aria-hidden="true" />
+      {isLoading && <Loading musicBlocked={bootMusicBlocked} onEnableMusic={enableBootMusic} />}
       {isFirstRun ? (
         !isLoading && <FirstRun onDone={finishFirstRun} />
       ) : (
