@@ -1,12 +1,14 @@
 # Hogwarts OS
 
-**A complete desktop-style operating system experience that runs in your browser.**
+I am a great fan of Harry Potter so I planned to make a web OS something related to Hogwarts
+
+**It is a complete desktop-style operating system experience that runs in your browser.**
 
 Hogwarts OS is a themed Web Operating System with a magical Hogwarts-inspired interface, apps, widgets, wallpapers, games, media tools, and customization.
 
 ## Features
-
-- Desktop-style windows and app management
+Main Feature of this OS is its  
+- Desktop-style and app management
 - Hogwarts-themed wallpapers and artwork
 - Multiple icon styles, including a **Windows** icon theme
 - VS Code-style editor and Terminal
@@ -20,7 +22,7 @@ Hogwarts OS is a themed Web Operating System with a magical Hogwarts-inspired in
 
 Open **Settings → Display → Icons Style** and choose between the existing Linux/macOS-inspired styles or the new **Windows** theme.
 
-## Run locally
+## To Run locally
 
 ```bash
 bun install
@@ -40,12 +42,14 @@ npm run dev
 npm run build
 ```
 
-## Credits
-
-This repository is a customized Hogwarts-themed version of the original Web OS project. The project structure and application architecture are retained while the branding, visual assets, and icon system have been customized.
-
 ## Design Reference
 
-The visual direction of Hogwarts OS takes inspiration from the official Harry Potter website, especially its editorial navigation, magical presentation, quizzes/discovery sections, and dark-gold wizarding aesthetic. The project does not copy the website code or download its proprietary artwork/assets.
+I had taken the visual direction of Hogwarts OS by the inspiration from the official Harry Potter website, especially its editorial navigation, magical presentation, quizzes/discovery sections, and dark-gold wizarding aesthetic.
 
 Official reference: https://www.harrypotter.com/
+
+To be frank I used GPT to generate pic and I faced a problem in add a song during boot I got help it 
+
+## Future upgrades
+-> I having plan of integrating Spotify with it so we can have unlimited fun 
+-> Having a plan of adding some interesting games and one of my favorite Pokémon Unite
