@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Home from './components/Home';
 import FirstRun from './components/FirstRun';
 import Loading from './components/layout/Loading';
@@ -88,7 +88,49 @@ function FullscreenGate() {
 
 function App() {
 
+  const bootAudioRef = useRef(null);
+  const [bootMusicBlocked, setBootMusicBlocked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const audio = bootAudioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.78;
+    audio.currentTime = 0;
+
+    const playBootMusic = () => {
+      audio.play()
+        .then(() => setBootMusicBlocked(false))
+        .catch(() => setBootMusicBlocked(true));
+    };
+
+    playBootMusic();
+
+    const resume = () => {
+      playBootMusic();
+      if (!audio.paused) {
+        window.removeEventListener("pointerdown", resume);
+        window.removeEventListener("keydown", resume);
+      }
+    };
+
+    window.addEventListener("pointerdown", resume, { passive: true });
+    window.addEventListener("keydown", resume);
+
+    return () => {
+      window.removeEventListener("pointerdown", resume);
+      window.removeEventListener("keydown", resume);
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  const enableBootMusic = () => {
+    bootAudioRef.current?.play()
+      .then(() => setBootMusicBlocked(false))
+      .catch(() => {});
+  };
   const [isFirstRun, setIsFirstRun] = useState(() => {
     try {
       return !localStorage.getItem("hogwarts-seen");
@@ -120,7 +162,8 @@ function App() {
   return (
     <>
       {
-        isLoading && <Loading />
+        <audio ref={bootAudioRef} src="/Music/Hedwigs-Song-Boot.mp3" preload="auto" aria-hidden="true" />
+        {isLoading && <Loading musicBlocked={bootMusicBlocked} onEnableMusic={enableBootMusic} />}
       }
       {isFirstRun ? (
         !isLoading && <FirstRun onDone={finishFirstRun} />
