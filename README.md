@@ -18,29 +18,8 @@ Main Feature of this OS is its
 - Widgets, Pomodoro, Weather and customization
 - Persistent settings using browser storage
 
-## Icon themes
-
-Open **Settings → Display → Icons Style** and choose between the existing Linux/macOS-inspired styles or the new **Windows** theme.
-
-## To Run locally
-
-```bash
-bun install
-bun run dev
-```
-
-Or with npm:
-
-```bash
-npm install
-npm run dev
-```
-
-## Build
-
-```bash
-npm run build
-```
+## NOTE:
+Sorry for the inconvenience the boot music is way too long ignore one you enter the home page 
 
 ## Design Reference
 
@@ -52,4 +31,5 @@ To be frank I used GPT to generate pic and I faced a problem in add a song durin
 
 ## Future upgrades
 -> I having plan of integrating Spotify with it so we can have unlimited fun 
+
 -> Having a plan of adding some interesting games and one of my favorite Pokémon Unite
