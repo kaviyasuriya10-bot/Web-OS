@@ -1,0 +1,267 @@
+import { cloneElement, isValidElement, useEffect, useRef, useState } from "react";
+import TopBar from "./home/topbar";
+import AppsBar from "./home/AppsBar";
+import Window from "./Window";
+import { WidgetsStore } from "../lib/Widgets/WidgetsStore.jsx";
+import { useAppStore } from '../store.jsx';
+import MenuApps from "./home/AppLogic/MenuApp.jsx";
+import WidgetsWindow from "./WidgetsWindow.jsx";
+import RightClick from "./home/RightClick.jsx";
+import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
+import { AppsInMenu } from "../lib/menuApps/menuAppIndex";
+import { getWallpaper } from "../DB/wallpaperDB";
+import {
+    CUSTOM_PREFIX,
+    COLOR_PREFIX,
+    DEFAULT_WALLPAPER,
+    isColorWallpaper as checkColorWallpaper,
+    isCustomWallpaper as checkCustomWallpaper,
+    isVideoWallpaper as checkVideoWallpaper,
+} from "../lib/wallpapers";
+
+export default function Home() {
+    const desktopRef = useRef();
+
+    const [clickComponent, setClickComponent] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+
+    const openedApps = useAppStore((state) => state.openedApps);
+    const openApp = useAppStore((state) => state.openApp);
+    const closeApp = useAppStore((state) => state.closeApp);
+    const Wallpaper = useAppStore((state) => state.Wallpaper) || DEFAULT_WALLPAPER;
+    const WallpaperBlur = useAppStore((state) => state.WallpaperBlur) || 0;
+    const WallpaperDim = useAppStore((state) => state.WallpaperDim) || 0;
+    const Brightness = useAppStore((state) => state.Brightness);
+    const isMenuOpen = useAppStore((state) => state.isMenuOpen);
+    const openedWidgets = useAppStore((state) => state.openedWidgets);
+    const isWidgetsMenuOpen = useAppStore((state) => state.isWidgetsMenuOpen);
+    const toggleWidgetMenu = useAppStore((state) => state.toggleWidgetMenu);
+    const openWidget = useAppStore((state) => state.openWidget);
+    const closeWidget = useAppStore((state) => state.closeWidget);
+    const IconStyle = useAppStore((state) => state.IconStyle);
+
+    const Widgets = WidgetsStore(IconStyle);
+    const desktopApps = AppsInMenu("Windows").filter((app) =>
+        ["Calculator", "Browser", "Notes", "Camera", "Music Player", "File Manager", "HogwartsSheets", "Hogwarts Word", "VS Code", "JSON Lab", "Weather", "Terminal"].includes(app.name)
+    );
+
+    const [customSrc, setCustomSrc] = useState(null);
+    const [customKind, setCustomKind] = useState(null);
+
+    const isCustomWallpaper = checkCustomWallpaper(Wallpaper);
+    const isSolidWallpaper = checkColorWallpaper(Wallpaper);
+
+    useEffect(() => {
+        if (!isCustomWallpaper) {
+            setCustomSrc(null);
+            setCustomKind(null);
+            return;
+        }
+        let cancelled = false;
+        let url = null;
+        const id = (Wallpaper || "").slice(CUSTOM_PREFIX.length);
+        getWallpaper(id)
+            .then((row) => {
+                if (cancelled || !row?.blob) return;
+                url = URL.createObjectURL(row.blob);
+                setCustomSrc(url);
+                setCustomKind(row.kind || (row.mime?.startsWith("video/") ? "video" : "image"));
+            })
+            .catch((err) => console.error("Failed to load custom wallpaper", err));
+        return () => {
+            cancelled = true;
+            if (url) URL.revokeObjectURL(url);
+            setCustomSrc(null);
+            setCustomKind(null);
+        };
+    }, [Wallpaper, isCustomWallpaper]);
+
+    const resolvedSrc = isCustomWallpaper ? customSrc : isSolidWallpaper ? null : Wallpaper;
+    const isVideoWallpaper = isSolidWallpaper
+        ? false
+        : isCustomWallpaper
+            ? customKind === "video"
+            : checkVideoWallpaper(Wallpaper);
+    const wallpaperFilter = WallpaperBlur ? `blur(${WallpaperBlur}px)` : undefined;
+    const wallpaperScale = WallpaperBlur ? "scale(1.08)" : undefined;
+
+    const handleRightClick = (event) => {
+        event.preventDefault();
+        clickComponent ? setClickComponent(false) : setClickComponent(true);
+        setPosition({ x: event.clientX, y: event.clientY })
+    };
+
+    const handleLeftClick = () => {
+        setClickComponent(false);
+    }
+
+    return (
+        <div
+            onContextMenu={handleRightClick}
+            onClick={handleLeftClick}
+            className="flex flex-col w-screen h-screen text-black"
+            style={{
+                filter: `brightness(${Brightness}%)`
+            }}
+        >
+            <div className="w-screen h-screen absolute -z-10 overflow-hidden" style={isSolidWallpaper ? { backgroundColor: Wallpaper.slice(COLOR_PREFIX.length) } : undefined}>
+                {isSolidWallpaper ? null : isVideoWallpaper ? (
+                    <video
+                        key={resolvedSrc}
+                        src={resolvedSrc}
+                        className="h-full w-full object-cover"
+                        style={{ filter: wallpaperFilter, transform: wallpaperScale }}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        disablePictureInPicture
+                    />
+                ) : (
+                    resolvedSrc && <img src={resolvedSrc} alt="wallpaper" className="h-full w-full object-cover" style={{ filter: wallpaperFilter, transform: wallpaperScale }} />
+                )}
+                {WallpaperDim > 0 && <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: WallpaperDim / 100 }} />}
+            </div>
+
+            <TopBar />
+
+            {clickComponent && (
+                <div className="absolute top-30 left-40 z-100 shadow-xl"
+                    style={{
+                        transition: "all 4s",
+                        top: position.y,
+                        left: position.x
+                    }}
+                >
+                    <RightClick onClose={() => setClickComponent(false)} />
+                </div>
+            )}
+
+            <div>
+                <div
+                    className={`
+            absolute top-8 bottom-0 right-0 z-50 flex flex-col bg-white/40 text-sm/6 text-neutral-600 rounded-lg shadow-lg transition-all duration-600 ease-in-out origin-top-right backdrop-blur-sm overflow-hidden
+            ${isWidgetsMenuOpen
+                            ? "opacity-100 translate-x-0 visible"
+                            : "opacity-0 translate-x-100 invisible pointer-events-none"
+                        }
+        `}
+                >
+                    <div className="flex items-center justify-between px-3 py-2 shrink-0 border-b border-white/40">
+                        <p className="text-sm font-semibold text-neutral-700">Widgets</p>
+                        <button
+                            onClick={toggleWidgetMenu}
+                            className="px-3 py-1 text-xs font-medium rounded-md bg-neutral-800 text-white hover:bg-neutral-700 transition-colors cursor-pointer"
+                        >
+                            Save
+                        </button>
+                    </div>
+                    <div className="flex-1 overflow-scroll p-2">
+                    {Widgets.map((widget) => {
+                        const Icon = widget.icon;
+                        const Widget = widget.component;
+                        const isPresent = openedWidgets.some((opened) => opened.id === widget.id);
+
+                        return (
+                            <div
+                                key={widget.id}
+                                className="flex flex-col items-center gap-2 mb-6 w-70"
+                            >
+                                <div className="flex items-center gap-2 px-2 w-full">
+                                    <img src={Icon} alt={widget.name} className="w-5" />
+                                    <p className="text-xs font-medium flex-1 text-left">{widget.name}</p>
+                                    <button
+                                        onClick={() => isPresent ? closeWidget(widget.id) : openWidget(widget)}
+                                        title={isPresent ? `Remove ${widget.name}` : `Add ${widget.name}`}
+                                        className="p-1 rounded-md cursor-pointer hover:bg-white/60 transition-colors text-neutral-700"
+                                    >
+                                        {isPresent ? <TrashIcon size={14} /> : <PlusIcon size={14} />}
+                                    </button>
+                                </div>
+
+                                <div
+                                    onClick={() => { if (!isPresent) openWidget(widget); }}
+                                    className={`w-60 h-44 overflow-hidden rounded-lg shrink-0 ${isPresent ? "pointer-events-none" : "cursor-pointer"}`}
+                                >
+                                    <div className="pointer-events-none w-full h-full">
+                                        <Widget />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    </div>
+                </div>
+            </div>
+            <div ref={desktopRef} className="relative flex-1 overflow-clip">
+                <div
+                    className="absolute left-4 top-4 z-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 auto-rows-max"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    {desktopApps.map((app) => (
+                        <button
+                            key={`desktop-${app.id}`}
+                            type="button"
+                            title={`Open ${app.name}`}
+                            onDoubleClick={() => openApp(app)}
+                            className="desktop-shortcut group flex h-[86px] w-[86px] flex-col items-center justify-center rounded-lg border border-transparent px-2 py-1 text-center transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        >
+                            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 p-1.5 shadow-lg backdrop-blur-sm transition group-hover:scale-105">
+                                <img src={app.icon} alt="" className="h-full w-full object-contain" draggable="false" />
+                            </span>
+                            <span className="mt-1 max-w-[82px] truncate text-[11px] font-medium text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.9)]">
+                                {app.name}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+                {
+                    openedWidgets.map((widget) => {
+                        const Widget = widget.component;
+
+                        return (
+                            <WidgetsWindow
+                                key={widget.id}
+                                id={widget.id}
+                                title={widget.name}
+                                icon={widget.icon}
+                                x={widget.x}
+                                y={widget.y}
+                                width={widget.width}
+                                height={widget.height}
+                                minWidth={widget.minWidth}
+                                minHeight={widget.minHeight}
+                                desktopRef={desktopRef}
+                                closeWidget={closeWidget}
+                            >
+                                <Widget />
+                            </WidgetsWindow>
+                        );
+                    })
+                }
+
+                {
+                    openedApps.map((app) => (
+                        <Window
+                            x={app.x}
+                            y={app.y}
+                            id={app.id}
+                            key={app.id}
+                            icon={app.icon}
+                            title={app.name}
+                            width={app.width}
+                            height={app.height}
+                            zIndex={app.zIndex}
+                            desktopRef={desktopRef}
+                            windowState={app.windowState}
+                            closeApp={() => closeApp(app.id)}
+                        >
+                            {isValidElement(app.app) ? cloneElement(app.app, { windowId: app.id }) : app.app}
+                        </Window>
+                    ))
+                }
+            </div>
+            {isMenuOpen ? <MenuApps openApp={openApp} /> : <AppsBar openApp={openApp} />}
+        </div >
+    );
+}
