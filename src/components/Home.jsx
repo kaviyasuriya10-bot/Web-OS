@@ -8,6 +8,7 @@ import MenuApps from "./home/AppLogic/MenuApp.jsx";
 import WidgetsWindow from "./WidgetsWindow.jsx";
 import RightClick from "./home/RightClick.jsx";
 import { PlusIcon, TrashIcon } from "@phosphor-icons/react";
+import { AppsInMenu } from "../lib/menuApps/menuAppIndex";
 import { getWallpaper } from "../DB/wallpaperDB";
 import {
     CUSTOM_PREFIX,
@@ -40,6 +41,9 @@ export default function Home() {
     const IconStyle = useAppStore((state) => state.IconStyle);
 
     const Widgets = WidgetsStore(IconStyle);
+    const desktopApps = AppsInMenu("Windows").filter((app) =>
+        ["Calculator", "Browser", "Notes", "Camera", "Music Player", "File Manager", "HogwartsSheets", "Hogwarts Word", "VS Code", "JSON Lab", "Weather", "Terminal"].includes(app.name)
+    );
 
     const [customSrc, setCustomSrc] = useState(null);
     const [customKind, setCustomKind] = useState(null);
@@ -190,6 +194,27 @@ export default function Home() {
                 </div>
             </div>
             <div ref={desktopRef} className="relative flex-1 overflow-clip">
+                <div
+                    className="absolute left-4 top-4 z-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 auto-rows-max"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    {desktopApps.map((app) => (
+                        <button
+                            key={`desktop-${app.id}`}
+                            type="button"
+                            title={`Open ${app.name}`}
+                            onDoubleClick={() => openApp(app)}
+                            className="desktop-shortcut group flex h-[86px] w-[86px] flex-col items-center justify-center rounded-lg border border-transparent px-2 py-1 text-center transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        >
+                            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 p-1.5 shadow-lg backdrop-blur-sm transition group-hover:scale-105">
+                                <img src={app.icon} alt="" className="h-full w-full object-contain" draggable="false" />
+                            </span>
+                            <span className="mt-1 max-w-[82px] truncate text-[11px] font-medium text-white drop-shadow-[0_1px_2px_rgba(0,0,0,.9)]">
+                                {app.name}
+                            </span>
+                        </button>
+                    ))}
+                </div>
                 {
                     openedWidgets.map((widget) => {
                         const Widget = widget.component;
