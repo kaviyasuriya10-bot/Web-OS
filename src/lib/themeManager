@@ -1,0 +1,25 @@
+export const THEMES = {
+    Gryffindor: {
+        name: "Gryffindor",
+        wallpaper: "...",
+        icons: "gryffindor",
+        font: "classic",
+        accent: "#c9a24b"
+    },
+
+    Hufflepuff: {
+        name: "Hufflepuff",
+        wallpaper: "...",
+        icons: "hufflepuff",
+        font: "classic",
+        accent: "#0078d4"
+    },
+
+    ravenclaw: {
+        name: "ravenclaw",
+        wallpaper: "...",
+        icons: "ravenclaw",
+        font: "classic",
+        accent: "#6366f1"
+    }
+};
