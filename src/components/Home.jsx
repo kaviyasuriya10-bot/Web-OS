@@ -41,7 +41,9 @@ export default function Home() {
     const IconStyle = useAppStore((state) => state.IconStyle);
 
     const Widgets = WidgetsStore(IconStyle);
-    
+    const desktopApps = AppsInMenu("wizard-icons").filter((app) =>
+        ["Calculator", "Browser", "Notes", "Camera", "Music Player", "File Manager", "HogwartsSheets", "Hogwarts Word", "VS Code", "JSON Lab", "Weather", "Terminal"].includes(app.name)
+    );
 
     const [customSrc, setCustomSrc] = useState(null);
     const [customKind, setCustomKind] = useState(null);
