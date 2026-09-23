@@ -161,7 +161,7 @@ function App() {
 
   return (
     <>
-      <audio ref={bootAudioRef} src="/Music/Hedwigs-Song-Boot.mp3" preload="auto" aria-hidden="true" />
+      <audio ref={bootAudioRef} src="/Music/Hogwarts Legacy intro title but with the Harry Potter theme song (Hedwig's Theme).mp3" preload="auto" aria-hidden="true" />
       {isLoading && <Loading musicBlocked={bootMusicBlocked} onEnableMusic={enableBootMusic} />}
       {isFirstRun ? (
         !isLoading && <FirstRun onDone={finishFirstRun} />
